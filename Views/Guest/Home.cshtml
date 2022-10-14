@@ -63,3 +63,15 @@
     </div>
 
 
+    <script type="text/javascript">
+
+        axios.get('/api/pizza/get')
+            .then(res =>{
+                console.log("ciao", res);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+    </script>
+
+

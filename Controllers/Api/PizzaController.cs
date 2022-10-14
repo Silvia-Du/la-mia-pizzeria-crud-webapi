@@ -11,7 +11,7 @@ namespace la_mia_pizzeria_static.Controllers.Api
         readonly PizzeriaContext _ctx = new();
 
         [HttpGet]
-        public IActionResult IndexGet()
+        public IActionResult Get()
         {
             List<Pizza> pizzas = _ctx.Pizzas?.ToList()!;           
             return Ok(pizzas);
