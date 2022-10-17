@@ -14,6 +14,7 @@ namespace la_mia_pizzeria_static.Controllers.Api
         [HttpGet]
         public IActionResult Get(string? name)
         {
+
             IQueryable<Pizza> pizzas;
 
             if (name is null)
@@ -27,7 +28,13 @@ namespace la_mia_pizzeria_static.Controllers.Api
             
             return Ok(pizzas.ToList<Pizza>());
 
-
+        }
+        [HttpGet("{id}")]
+        public IActionResult Show(int id)
+        {
+            //cercare la pizza e passarla alla vista
+            Pizza pizza = _ctx.Pizzas?.FirstOrDefault(p => p.Id == id);
+            return Ok(pizza);
         }
     }
 }

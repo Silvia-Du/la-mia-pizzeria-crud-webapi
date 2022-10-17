@@ -22,20 +22,6 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
             return View();
         }
 
-        public IActionResult About()
-        {
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            return View();
-        }
-
-        public IActionResult BuyOnline()
-        {
-            return View();
-        }
 
     }
 }

@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = "Guest/_Layout";
+}
+
+    <div class="container debug px-3 py-4 bg-beige">
+        <div class="row card">
+           @*//qui viene ìniettato il codice*@           
+        </div> 
+    
+    </div>
+
+    <script type="text/javascript">
+
+        let id = window.location.pathname.split('/')[3];
+        axios.get('/api/pizza/show/' + id)
+        .then(res=>{
+            console.log(res.data)
+            console.log("ecccomi")
+            const pizza = res.data;
+            document.querySelector('.card').innerHTML +=
+            `
+             <div class="col-6">
+                <img src="${pizza.image}" class="mb-2 w-100 rounded-box" alt="${pizza.name}/>
+            </div>
+             <div class="col-6">
+                 <h2 class="mb-3">Nome</h2>
+                 <p>${pizza.name}</p>
+                 <p>Categoria</p>
+                 <p>${pizza.description}</p>
+                 <p>${pizza.price}</p>
+
+                 <a class="btn_show px-3 py-2 rounded-pill" asp-area="" asp-controller="Pizza" asp-action="Index">Lista Pizze</a>
+            </div>
+            
+            `
+        })
+        .catch(err=>{
+            console.log(err.message)
+        })
+
+    </script>
+
+
+
