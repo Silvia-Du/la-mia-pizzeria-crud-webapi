@@ -12,18 +12,22 @@ namespace la_mia_pizzeria_static.Controllers.Api
         readonly PizzeriaContext _ctx = new();
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string? name)
         {
-            List<Pizza> pizzas = _ctx.Pizzas?.ToList()!;
+            IQueryable<Pizza> pizzas;
 
-            if (pizzas is null)
+            if (name is null)
             {
-                string message = "Non è stato possibile estrarre i dati dal db, la lista è null";
-                UnprocessableEntity(message);
+                pizzas = _ctx.Pizzas!;
             }
+            else
+            {
+                pizzas = _ctx.Pizzas?.Where(p => p.Name.ToLower().Contains(name.ToLower()))!;
+            }
+            
+            return Ok(pizzas.ToList<Pizza>());
 
-            return Ok(pizzas);
-       
+
         }
     }
 }
