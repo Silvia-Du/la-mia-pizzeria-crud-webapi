@@ -4,7 +4,7 @@
 }
 
     <div class="container debug px-3 py-4 bg-beige">
-        <div class="row card">
+        <div class="row card" data-content="@ViewData["id"]">
            @*//qui viene ìniettato il codice*@           
         </div> 
     
@@ -12,7 +12,9 @@
 
     <script type="text/javascript">
 
-        let id = window.location.pathname.split('/')[3];
+        //let id = window.location.pathname.split('/')[3];
+        let id = document.querySelector('.card').;
+
         axios.get('/api/pizza/show/' + id)
         .then(res=>{
             console.log(res.data)
