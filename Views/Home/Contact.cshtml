@@ -1,0 +1,75 @@
+﻿
+@{
+    Layout = "Guest/_Layout";
+}
+
+<div class="container form-box bg-beige debug p-4 d-flex justify-content-center align-items-center flex-column px-md-5">
+    <div class="debug row w-100 mx-md-5 py-3">
+        <h2 class="mb-3">Contattaci!</h2>
+        <form 
+            
+        >
+            @*titolo*@
+            <div class="mb-3">
+                <strong>Titolo:</strong>
+                <input type="text" class="d-block w-100" />
+                <span class="text-danger"></span>
+            </div>
+            @*testo*@
+            <div class="mb-3">
+                <strong>Messaggio:</strong>
+                <textarea type="text" class="d-block w-100" rows="5"></textarea>
+                <span class="text-danger"></span>
+            </div>
+            @*nome*@
+            <div class="mb-3">
+                <strong>Il tuo nome :</strong>
+                <input type="text" class="d-block w-100" />
+                <span class="text-danger"></span>
+            </div>
+            @*email*@
+            <div class="mb-3">
+                <strong>La tua email :</strong>
+                <input type="text" class="d-block w-100" />
+                <span class="text-danger"></span>
+            </div>
+
+                <input onclick="sendMex()" class="btn btn-small  btn-secondary" value="Invia">
+            <div class="text-end">
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function sendMex(){
+
+        //e.preventDefault();
+        axios.post('/api/message/send',{
+            title: "titolone",
+            text: "textooo",
+            name: "nome utente",
+            email: "silvia@hotmail.it",
+
+        })
+        .then(r=>{
+            console.log(r);
+        })
+        .catch(e=>{
+            console.log(e);
+        })
+
+    }
+        
+    
+
+
+
+</script>
+
+
+
+

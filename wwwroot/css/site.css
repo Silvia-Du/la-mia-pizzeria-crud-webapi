@@ -75,3 +75,6 @@ body {
 .searcher{
     max-width:220px;
 }
+.form-box{
+    height:100vh;
+}

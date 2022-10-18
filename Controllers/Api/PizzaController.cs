@@ -38,5 +38,6 @@ namespace la_mia_pizzeria_static.Controllers.Api
             Pizza pizza = _ctx.Pizzas?.Include("Category").Include("Ingredients").FirstOrDefault(p => p.Id == id)!;
             return Ok(pizza);
         }
+        
     }
 }

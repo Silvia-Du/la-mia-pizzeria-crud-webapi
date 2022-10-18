@@ -11,6 +11,8 @@ namespace la_mia_pizzeria_crude_mvc.Models
         public DbSet<Pizza>? Pizzas { get; set; }
         public DbSet<Category>? Categories { get; set; }
         public DbSet<Ingredient>? Ingredients { get; set; }
+        public DbSet<Message>? Messages { get; set; }
+
 
         public PizzeriaContext()
         {
