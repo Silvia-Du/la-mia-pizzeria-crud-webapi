@@ -16,7 +16,8 @@ namespace la_mia_pizzeria_static.Controllers.Api
 
         public IActionResult Send(Message message)
         {
-
+            _ctx.Messages.Add(message);
+            _ctx.SaveChanges();
             return Ok();
 
         }

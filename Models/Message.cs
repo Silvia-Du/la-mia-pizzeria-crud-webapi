@@ -24,7 +24,7 @@ namespace la_mia_pizzeria_static.Models
         public string? Name { get; set; }
 
         [Column("email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "L'email inserita non è valida")]
         [Required(ErrorMessage = "L'email di cotatto è obbligatoria")]
         public string? Email { get; set; }
 
