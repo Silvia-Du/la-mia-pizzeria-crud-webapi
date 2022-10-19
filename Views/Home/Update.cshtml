@@ -47,33 +47,14 @@
             <span class="text-danger"></span>
         </div>*@
 
-       @* <div class="mb-3">
-            <strong>Tag:</strong>
+        <div class="mb-3">
+            <strong>Ingredienti:</strong>
             <select multiple="multiple"
-            size="10" class="form-control mb-2 mr-sm-2 ml-sm-3 leftList" >
+            size="10" class="form-control mb-2 mr-sm-2 ml-sm-3 leftList ingredients" >
+
+             </select>
             
-            @foreach (Ingredient ing in Model.Ingredients)
-            {
-                @if (Model.Pizza.Ingredients.Contains(ing))
-                {
-                    <option selected value="@ing.Id">@ing.Name</option>
-                }
-                else
-                {
-
-                    <option value="@ing.Id">@ing.Name</option>
-                }
-
-            }
-            </select>
-        </div>*@
-
-        @*  <select asp-for="SelectedTags"
-                    multiple="multiple"
-                    size="10"
-                    class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
-                    asp-items="@Model.Tags">
-                </select>*@
+        </div>        
 
         <div class="mb-3">
             <strong>Prezzo:</strong>
@@ -95,7 +76,6 @@
 
     function getData(){
 
-        getIngredients();
 
         let id = document.querySelector('.form-js').id;
         axios.get('/api/pizza/show/' + id)
@@ -105,6 +85,7 @@
             document.querySelector('.description').value = pizza.description;
             document.querySelector('.image').value = pizza.image;
             document.querySelector('.price').value = pizza.price;            
+            getIngredients(pizza.ingredients);
             
         })
         .catch(err=>{
@@ -113,17 +94,41 @@
 
     }
 
-    function getIngredients(){
+    function getIngredients(ingredients){
+        const ingrString =[];
+
+        for(let ing in ingredients){
+            ingrString.push(ingredients[ing].name);
+        }
 
         axios.get('/api/ingredient/get')
         .then(r=>{
-            console.log(r);
+
+            const select = document.querySelector('.ingredients');
+                    console.log(ingrString);
+
+            for(let ing in r.data){
+                console.log(r.data[ing].name);
+                console.log(ingrString.includes(r.data[ing].name));
+                if(ingrString.includes(r.data[ing].name)){
+
+                select.innerHTML+=
+                    `<option selected value="${r.data[ing].id}">${r.data[ing].name}</option>`
+                }else{
+
+                select.innerHTML+=
+                    `<option value="${r.data[ing].id}">${r.data[ing].name}</option>`
+                }    
+
+            }
+            
         })
         .catch(e=>{
             console.log("ingredients-error", e);
         })
     }
 
+                
     function sendData(){
     }
     
