@@ -48,6 +48,23 @@ namespace la_mia_pizzeria_static.Controllers.Api
 
             else return Ok(searchedPizza);
         }
-        
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            Pizza searchedPizza = _ctx.Pizzas?.FirstOrDefault(p => p.Id == id)!;
+
+            if (searchedPizza is null)
+            {
+                return NotFound(new { response = "Non è stata trovata nessuna corrispondenza" });
+            }
+            else
+            {
+                _ctx.Pizzas.Remove(searchedPizza);
+                _ctx.SaveChanges();
+                return Ok(new {response = "Pizza eliminata con successo"});
+            }
+        }
+
     }
 }

@@ -25,27 +25,13 @@
             <span  class="text-danger"></span>
         </div>
 
-       @* <div class="mb-3">
+        <div class="mb-3">
             <strong>Categoria:</strong>
-            <select class="form-select" >
+            <select class="form-select categories" >
                 <option value="">Seleziona la categoria</option>
-                @foreach (Category category in Model.Categories)
-                {
-                    if (Model.Pizza.CategoryId == category.Id)
-                    {
-
-                        <option value="@category.Id" selected>@category.Name</option>
-
-                    }
-                    else
-                    {
-
-                        <option value="@category.Id">@category.Name</option>
-                    }
-                }
             </select>
             <span class="text-danger"></span>
-        </div>*@
+        </div>
 
         <div class="mb-3">
             <strong>Ingredienti:</strong>
@@ -63,7 +49,7 @@
         </div>
 
         <div class="text-end">
-            <input onclick="sendData()" class="btn btn-small  btn-secondary" value="Salva">
+            <input onclick="sendData(@ViewData["id"])" class="btn btn-small  btn-secondary" value="Salva">
         </div>
 
     </form>
@@ -71,32 +57,34 @@
 
 <script type="text/javascript">
 
-    getData();
+    //INIT
+    getData(); 
     
-
+    //GET ALL OLD DATA
     function getData(){
-
-
         let id = document.querySelector('.form-js').id;
         axios.get('/api/pizza/show/' + id)
         .then(res=>{
             const pizza = res.data;
+            console.log(pizza);
             document.querySelector('.name').value = pizza.name;
             document.querySelector('.description').value = pizza.description;
             document.querySelector('.image').value = pizza.image;
-            document.querySelector('.price').value = pizza.price;            
+            document.querySelector('.price').value = pizza.price;
+            
             getIngredients(pizza.ingredients);
+            getCategories(pizza.category);
             
         })
         .catch(err=>{
-            console.log("pizza-error",err.message)
+            console.log("pizza-error",err.message);
         })
 
     }
-
+    //GET INGREDIENTS
     function getIngredients(ingredients){
-        const ingrString =[];
 
+        const ingrString =[];
         for(let ing in ingredients){
             ingrString.push(ingredients[ing].name);
         }
@@ -105,11 +93,9 @@
         .then(r=>{
 
             const select = document.querySelector('.ingredients');
-                    console.log(ingrString);
 
             for(let ing in r.data){
-                console.log(r.data[ing].name);
-                console.log(ingrString.includes(r.data[ing].name));
+
                 if(ingrString.includes(r.data[ing].name)){
 
                 select.innerHTML+=
@@ -128,8 +114,43 @@
         })
     }
 
+    //GET CATEGORY
+    function getCategories(category){
+        axios.get('/api/category/get')
+        .then(r=>{
+
+            const select = document.querySelector('.categories');
+
+            for(let cat in r.data){
+                console.log(r.data[cat].name);
                 
-    function sendData(){
+                if(category.id == r.data[cat].id){
+
+                select.innerHTML+=
+                    `<option selected value="${r.data[cat].id}">${r.data[cat].name}</option>`
+                }else{
+
+                select.innerHTML+=
+                    `<option value="${r.data[cat].id}">${r.data[cat].name}</option>`
+                }    
+            }
+
+        })
+        .catch(e=>{
+            console.log("ingredients-error", e);
+        })
+
+    }
+    //PUT FUNCTION           
+    function sendData(id){
+
+        //axios.put('/api/pizza/Put'+id,{
+        //    name: document.querySelector("#Title").value,
+        //    description: document.querySelector("#Text").value,
+        //    img: document.querySelector("#Name").value,
+        //    prezzo: document.querySelector("#Email").value,
+        //})
+      
     }
     
 </script>

@@ -8,7 +8,11 @@
 
 <div class="container list-container pizza-container">
 
-    <h2 class="my-3">Pizze</h2>       
+    <h2 class="my-3">Pizze</h2> 
+
+    <div class="user-output d-flex justify-content-between align-items-center d-none">
+        <i class="fa-solid fa-x" onclick="hideBlock()"></i>
+    </div>
     
 
     <div class="no-result p-3">
@@ -127,11 +131,35 @@
                 </a>
 
                 <a class="btn btn-primary rounded-pill" href="/Home/Update/${pizza.id}">Modifica</a>
+                <a class="btn btn-primary rounded-pill" onclick="deletePizza(${pizza.id})" >Elimina</a>
+
                 </div>
 
                 `;
            
             });
+        }
+        function deletePizza(id){
+            axios.delete('/api/pizza/delete/'+id)
+            .then(r=>{
+                console.log(r.data.response);
+                const output = document.querySelector('.user-output');
+                output.classList.add('alert-success');
+                output.classList.remove('d-none');
+
+                let hide = false;
+                output.innerHTML+=
+                `<h3>${r.data.response}</h3>
+                `;
+                getPizzas("");
+            })
+            .catch(e=>{
+                console.log(e.data.response);
+            })
+        }
+        function hideBlock(){
+             document.querySelector('.user-output').classList.add('.d-none');
+
         }
 
 
