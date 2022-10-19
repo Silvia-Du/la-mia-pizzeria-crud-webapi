@@ -53,6 +53,10 @@
         })
         .then(r=>{
             console.log(r);
+            //svuotare campi
+
+            //feedback per utente
+            //reindirizzare a nuova pagina
         })
         .catch(e=>{
            const inputCollection = document.querySelectorAll('.input-c');
@@ -67,19 +71,7 @@
                     document.querySelector(`.${array}`).innerHTML+=
                     `<span class="text-danger">${value[text]}; </span>`
                }
-               //if(eCollection.value){
 
-                   //console.log(eCollection.Name);
-                   //for(let err in eCollection.value){
-                   //     console.log(eCollection.value[err]);
-                   //     document.querySelector(`.${value}`).innerHTML+=
-                   //     `
-                   //         <span class="text-danger">${eCollection.value[err]}</span>
-
-                   //     `
-
-                   //}
-               //}
            }
            
            

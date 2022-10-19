@@ -38,6 +38,16 @@ namespace la_mia_pizzeria_static.Controllers.Api
             Pizza pizza = _ctx.Pizzas?.Include("Category").Include("Ingredients").FirstOrDefault(p => p.Id == id)!;
             return Ok(pizza);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Pizza pizza)
+        {
+            Pizza searchedPizza = _ctx.Pizzas?.FirstOrDefault(p => p.Id == id)!;
+
+            if (searchedPizza is null) return NotFound();
+
+            else return Ok(searchedPizza);
+        }
         
     }
 }

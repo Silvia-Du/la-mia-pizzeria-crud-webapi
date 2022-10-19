@@ -8,19 +8,19 @@ namespace la_mia_pizzeria_static.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class MessageController : ControllerBase
+    public class IngredientController : ControllerBase
     {
         readonly PizzeriaContext _ctx = new();
 
-        [HttpPost]
-
-        public IActionResult Send([FromBody]Message message)
+        [HttpGet]
+        public IActionResult Get()
         {
-            _ctx.Messages?.Add(message);
-            _ctx.SaveChanges();
-            return Ok();
+
+            List<Ingredient> ingredients = _ctx.Ingredients?.ToList()!;
+
+            return Ok(ingredients);
 
         }
-        
+
     }
 }

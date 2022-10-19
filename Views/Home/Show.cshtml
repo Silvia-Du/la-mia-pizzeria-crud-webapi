@@ -4,7 +4,7 @@
 }
 
     <div class="container debug px-3 py-4 bg-beige">
-        <div class="row card" data-content="@ViewData["id"]">
+        <div class="row card" id="@ViewData["id"]">
            @*//qui viene ìniettato il codice*@           
         </div> 
     
@@ -13,7 +13,7 @@
     <script type="text/javascript">
 
         //let id = window.location.pathname.split('/')[3];
-        let id = document.querySelector('.card').;
+        let id = document.querySelector('.card').id;
 
         axios.get('/api/pizza/show/' + id)
         .then(res=>{
@@ -32,7 +32,7 @@
                  <p>${pizza.description}</p>
                  <p>${pizza.price}</p>
 
-                 <a class="btn_show px-3 py-2 rounded-pill" asp-area="" asp-controller="Pizza" asp-action="Index">Lista Pizze</a>
+                 <a class="btn_show px-3 py-2 rounded-pill" href="/Home/Index" >Lista Pizze</a>
             </div>
             
             `
